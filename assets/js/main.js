@@ -35,37 +35,22 @@ let result = document.createElement('h1');
 playButton.addEventListener('click', function () {
     //azzero griglia
     containerEl.innerText = '';
+    //azzero risultato
     result.innerText = '';
     //appare la griglia
     document.querySelector('.container').style.display = 'flex';
-    //numero delle celle cliccate
+    //azzero numero delle celle cliccate
     let cellFree = 0;
-    //seleziono elemento select
+    //seleziono difficoltà
     const difficultEl = document.getElementById('difficult').value;
 
     //evoco funzione numero celle x difficoltà
     const numberCells = difficultSelection(difficultEl);
 
 
-    // genero le bombe
+    // evoco funzione per generare le bombe
     const bombs = generateBombs(1, numberCells)
     console.log(bombs);
-
-    function generateBombs(min, max) {
-        //array con le bombe
-        const bombs = [];
-
-        while (bombs.length < 16) {
-            //genero numeri random (bombe)
-            const bomb = generateNumbers(min, max);
-
-            if (!bombs.includes(bomb)) {
-                //inserisco bombe nell'array
-                bombs.push(bomb);
-            }
-        }
-        return bombs
-    }
 
     for (let i = 1; i <= numberCells; i++) {
 
@@ -138,4 +123,21 @@ function difficultSelection(difficultEl) {
     }
 
     return numberCells
+}
+
+//funzione per generare bombe
+function generateBombs(min, max) {
+    //array con le bombe
+    const bombs = [];
+
+    while (bombs.length < 16) {
+        //genero numeri random (bombe)
+        const bomb = generateNumbers(min, max);
+
+        if (!bombs.includes(bomb)) {
+            //inserisco bombe nell'array
+            bombs.push(bomb);
+        }
+    }
+    return bombs
 }
