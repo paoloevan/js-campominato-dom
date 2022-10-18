@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    font-size: 1.5rem;
+    display: none;
+    flex-wrap: wrap;
+}
+.cell {
+    aspect-ratio: 1/1;
+    border: 2px solid;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+}
+.cell_easy {
+    width: calc(100% / 10);
+}
+.cell_md {
+    width: calc(100% / 9);
+}
+.cell_hard {
+    width: calc(100% / 7);
+}
+.active {
+    background-color: aqua;
+}
+.cell:hover {
+    cursor: pointer;
+}
+button {
+    margin: 3rem;
+    padding: 1rem 3rem;
+    border-radius: 30px;
+    background-color: greenyellow;
+    font-weight: 900;
+    border: none;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+.buttons {
+    text-align: center;
+}
+
+select, option {
+    margin: 3rem;
+    padding: 1rem;
+    border-radius: 30px;
+    background-color: green;
+    font-weight: 900;
+    border: none;
+    letter-spacing: 2px;
+    cursor: pointer; 
+}
