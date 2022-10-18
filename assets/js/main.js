@@ -58,17 +58,12 @@ playButton.addEventListener('click', function () {
 
         // aggiungo numero nella cella
         cellEl.innerText = i;
-        
-
-
+ 
 
         cellEl.addEventListener('click', function () {
             //numero celle per vincere
             const winnerCells = numberCells - 16;
-
-            if (cellFree == winnerCells) {
-                alert('hai vinto');
-            }
+            
             //aggiungo classe active - bomb
             if (!bombs.includes(i) && cellFree == winnerCells - 1) {
                 this.classList.add('active');
