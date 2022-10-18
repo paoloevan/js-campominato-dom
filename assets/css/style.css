@@ -61,3 +61,6 @@ select, option {
     letter-spacing: 2px;
     cursor: pointer; 
 }
+h1 {
+    text-align: center;
+}

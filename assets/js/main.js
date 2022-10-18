@@ -28,9 +28,12 @@ playButton.addEventListener('click', function () {
     containerEl.innerHTML = '';
     //appare la griglia
     document.querySelector('.container').style.display = 'flex';
+    //numero delle celle cliccate
+    let cellFree = 0;
     //seleziono elemento select
     const difficultEl = document.getElementById('difficult').value;
     //condizione per difficoltà
+    let numberCells
     if (difficultEl == 'difficile') {
         numberCells = 100;
     } else if (difficultEl == 'normale') {
@@ -38,19 +41,19 @@ playButton.addEventListener('click', function () {
     } else if (difficultEl == 'facile') {
         numberCells = 49;
     }
-
+    
     // genero le bombe
     const bombs = generateBombs(1, numberCells)
     console.log(bombs);
-
+    
     function generateBombs(min, max) {
         //array con le bombe
         const bombs = [];
-
+        
         while (bombs.length < 16) {
             //genero numeri random (bombe)
             const bomb = generateNumbers(min, max);
-
+            
             if (!bombs.includes(bomb)) {
                 //inserisco bombe nell'array
                 bombs.push(bomb)
@@ -58,15 +61,15 @@ playButton.addEventListener('click', function () {
         }
         return bombs
     }
-
+    
     for (let i = 1; i <= numberCells; i++) {
-
+        
         // creo elemento da inserire nella dom
         const cellEl = document.createElement('div');
-
+        
         //inserisco elemento nella dom con ciclo
         containerEl.append(cellEl);
-
+        
         //aggiungo la classe al'elemento
         if (difficultEl == 'facile') {
             cellEl.className = 'cell_hard cell';
@@ -74,30 +77,49 @@ playButton.addEventListener('click', function () {
             cellEl.className = 'cell_md cell';
         } else if (difficultEl == 'difficile') {
             cellEl.className = 'cell_easy cell';
-
+            
         }
-
+        
         // aggiungo numero nella cella
         cellEl.innerText = i;
-
+        
+        
         cellEl.addEventListener('click', function () {
+            //numero celle per vincere
+            const maxCells = numberCells -16;
+            
+            if (cellFree == maxCells) {
+                alert('hai vinto')
+            }
             //aggiungo classe active - bomb
             if (bombs.includes(i)) {
                 this.classList.add('bomb');
+                //console.log('punteggio', cellFree);
+                const result = document.createElement('h1');
+                result.innerHTML = `Hai perso! Punteggio: ${cellFree}`;
+                console.log(result);
+                containerEl.insertAdjacentElement('beforebegin', result);
             } else {
                 //cellEl.classList.add('active'); //soluzione alternativa
                 this.classList.add('active');
+                cellFree++
+                console.log(cellFree, 'numero celle azzurre');
                 //this.classList.toggle('active'); //soluzione alternativa
             }
 
-
+            
+            
             //emissione messaggio console con numero della cella
             console.log(cellEl.innerText);
         })
+        
+        
+        
     }
-
-
-
+    
+    
+    
+   
 
 
 })
