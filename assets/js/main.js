@@ -54,35 +54,23 @@ playButton.addEventListener('click', function () {
 
     for (let i = 1; i <= numberCells; i++) {
 
-        // creo elemento da inserire nella dom
-        const cellEl = document.createElement('div');
-
-        //inserisco elemento nella dom con ciclo
-        containerEl.append(cellEl);
-
-        //aggiungo la classe al'elemento
-        if (difficultEl == 'facile') {
-            cellEl.className = 'cell_hard cell';
-        } else if (difficultEl == 'normale') {
-            cellEl.className = 'cell_md cell';
-        } else if (difficultEl == 'difficile') {
-            cellEl.className = 'cell_easy cell';
-
-        }
+        const cellEl = myGrid(containerEl, difficultEl);
 
         // aggiungo numero nella cella
         cellEl.innerText = i;
+        
+
 
 
         cellEl.addEventListener('click', function () {
             //numero celle per vincere
-            const maxCells = numberCells - 16;
+            const winnerCells = numberCells - 16;
 
-            if (cellFree == maxCells) {
+            if (cellFree == winnerCells) {
                 alert('hai vinto');
             }
             //aggiungo classe active - bomb
-            if (!bombs.includes(i) && cellFree == maxCells - 1) {
+            if (!bombs.includes(i) && cellFree == winnerCells - 1) {
                 this.classList.add('active');
                 result.innerHTML = `Hai vinto!`;
                 console.log(result);
@@ -140,4 +128,25 @@ function generateBombs(min, max) {
         }
     }
     return bombs
+}
+
+// funzione per generare la griglia
+function myGrid(appending, difficult) {
+    // creo elemento da inserire nella dom
+    const cellEl = document.createElement('div');
+
+    //inserisco elemento nella dom con ciclo
+    appending.append(cellEl);
+
+    //aggiungo la classe al'elemento
+    if (difficult == 'facile') {
+        cellEl.className = 'cell_hard cell';
+    } else if (difficult == 'normale') {
+        cellEl.className = 'cell_md cell';
+    } else if (difficult == 'difficile') {
+        cellEl.className = 'cell_easy cell';
+
+    }
+
+    return cellEl
 }
