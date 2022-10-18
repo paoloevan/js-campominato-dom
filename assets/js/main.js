@@ -21,11 +21,15 @@ che l’utente ha cliccato su una cella che non era una bomba.
 const containerEl = document.querySelector('.container');
 //seleziono bottone dalla dom
 const playButton = document.getElementById('play');
+//seleziono risultato dalla dom
+let result = document.createElement('h1');
 
 //aggiungo event listner
 playButton.addEventListener('click', function () {
     //azzero griglia
-    containerEl.innerHTML = '';
+    containerEl.innerText = '';
+    result.innerText = '';
+    console.log(result, 'si');
     //appare la griglia
     document.querySelector('.container').style.display = 'flex';
     //numero delle celle cliccate
@@ -95,8 +99,10 @@ playButton.addEventListener('click', function () {
             if (bombs.includes(i)) {
                 this.classList.add('bomb');
                 //console.log('punteggio', cellFree);
-                const result = document.createElement('h1');
                 result.innerHTML = `Hai perso! Punteggio: ${cellFree}`;
+                containerEl.insertAdjacentElement('beforebegin', result);
+            } else if (cellFree == 3){
+                result.innerHTML = `Hai vinto!`;
                 console.log(result);
                 containerEl.insertAdjacentElement('beforebegin', result);
             } else {
