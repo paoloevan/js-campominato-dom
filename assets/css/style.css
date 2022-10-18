@@ -31,6 +31,9 @@
 .active {
     background-color: aqua;
 }
+.bomb {
+    background-color: rgb(215, 67, 67);
+}
 .cell:hover {
     cursor: pointer;
 }

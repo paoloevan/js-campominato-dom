@@ -42,15 +42,15 @@ playButton.addEventListener('click', function () {
     // genero le bombe
     const bombs = generateBombs(1, numberCells)
     console.log(bombs);
-    
+
     function generateBombs(min, max) {
         //array con le bombe
         const bombs = [];
-        
+
         while (bombs.length < 16) {
             //genero numeri random (bombe)
             const bomb = generateNumbers(min, max);
-            
+
             if (!bombs.includes(bomb)) {
                 //inserisco bombe nell'array
                 bombs.push(bomb)
@@ -80,20 +80,24 @@ playButton.addEventListener('click', function () {
         // aggiungo numero nella cella
         cellEl.innerText = i;
 
-
         cellEl.addEventListener('click', function () {
-            //aggiungo classe active
-            //cellEl.classList.add('active'); //soluzione alternativa
-            this.classList.add('active');
-            //this.classList.toggle('active'); //soluzione alternativa
+            //aggiungo classe active - bomb
+            if (bombs.includes(i)) {
+                this.classList.add('bomb');
+            } else {
+                //cellEl.classList.add('active'); //soluzione alternativa
+                this.classList.add('active');
+                //this.classList.toggle('active'); //soluzione alternativa
+            }
+
 
             //emissione messaggio console con numero della cella
             console.log(cellEl.innerText);
         })
     }
 
-    
-    
+
+
 
 
 })
