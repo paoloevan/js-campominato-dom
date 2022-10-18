@@ -39,6 +39,26 @@ playButton.addEventListener('click', function () {
         numberCells = 49;
     }
 
+    // genero le bombe
+    const bombs = generateBombs(1, numberCells)
+    console.log(bombs);
+    
+    function generateBombs(min, max) {
+        //array con le bombe
+        const bombs = [];
+        
+        while (bombs.length < 16) {
+            //genero numeri random (bombe)
+            const bomb = generateNumbers(min, max);
+            
+            if (!bombs.includes(bomb)) {
+                //inserisco bombe nell'array
+                bombs.push(bomb)
+            }
+        }
+        return bombs
+    }
+
     for (let i = 1; i <= numberCells; i++) {
 
         // creo elemento da inserire nella dom
@@ -73,34 +93,10 @@ playButton.addEventListener('click', function () {
     }
 
     
-    const bombs = generateBombs(1, numberCells)
-    console.log(bombs);
     
-    function generateBombs(min, max) {
-        //genero le bombe
-        //array con le bombe
-        const bombs = [];
-        
-        while (bombs.length < 16) {
-            //genero numeri random (bombe)
-            const bomb = generateNumbers(min, max);
-            
-            if (!bombs.includes(bomb)) {
-                //inserisco bombe nell'array
-                bombs.push(bomb)
-            }
-        }
-        return bombs
-    }
 
 
 })
-
-
-/*Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta:
-le bombe.
-nella stessa cella può essere posizionata al massimo una bomba, perciò nell’array delle
-bombe non potranno esserci due numeri uguali.*/
 
 //funzione per numeri casuali
 function generateNumbers(min, max) {
