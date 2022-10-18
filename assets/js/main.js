@@ -25,7 +25,7 @@ const playButton = document.getElementById('play');
 //aggiungo event listner
 playButton.addEventListener('click', function () {
     //azzero griglia
-    containerEl.innerHTML = ''
+    containerEl.innerHTML = '';
     //appare la griglia
     document.querySelector('.container').style.display = 'flex';
     //seleziono elemento select
@@ -35,7 +35,7 @@ playButton.addEventListener('click', function () {
         numberCells = 100;
     } else if (difficultEl == 'normale') {
         numberCells = 81;
-    } else if (difficultEl == 'facile'){
+    } else if (difficultEl == 'facile') {
         numberCells = 49;
     }
 
@@ -52,23 +52,57 @@ playButton.addEventListener('click', function () {
             cellEl.className = 'cell_hard cell';
         } else if (difficultEl == 'normale') {
             cellEl.className = 'cell_md cell';
-        } else if (difficultEl == 'difficile'){
+        } else if (difficultEl == 'difficile') {
             cellEl.className = 'cell_easy cell';
-            
+
         }
 
         // aggiungo numero nella cella
         cellEl.innerText = i;
 
-        
+
         cellEl.addEventListener('click', function () {
             //aggiungo classe active
             //cellEl.classList.add('active'); //soluzione alternativa
             this.classList.add('active');
             //this.classList.toggle('active'); //soluzione alternativa
-            
+
             //emissione messaggio console con numero della cella
             console.log(cellEl.innerText);
         })
     }
+
+    
+    const bombs = generateBombs(1, numberCells)
+    console.log(bombs);
+    
+    function generateBombs(min, max) {
+        //genero le bombe
+        //array con le bombe
+        const bombs = [];
+        
+        while (bombs.length < 16) {
+            //genero numeri random (bombe)
+            const bomb = generateNumbers(min, max);
+            
+            if (!bombs.includes(bomb)) {
+                //inserisco bombe nell'array
+                bombs.push(bomb)
+            }
+        }
+        return bombs
+    }
+
+
 })
+
+
+/*Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta:
+le bombe.
+nella stessa cella può essere posizionata al massimo una bomba, perciò nell’array delle
+bombe non potranno esserci due numeri uguali.*/
+
+//funzione per numeri casuali
+function generateNumbers(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
