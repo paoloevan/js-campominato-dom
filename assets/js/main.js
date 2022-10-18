@@ -33,20 +33,18 @@ let result = document.createElement('h1');
 
 //aggiungo event listner
 playButton.addEventListener('click', function () {
-    //azzero griglia
-    containerEl.innerText = '';
-    //azzero risultato
-    result.innerText = '';
-    //appare la griglia
-    document.querySelector('.container').style.display = 'flex';
+
+    //evoco funzione per resettare la griglia
+    gridReset(containerEl,result)
+
     //azzero numero delle celle cliccate
     let cellFree = 0;
+
     //seleziono difficoltà
     const difficultEl = document.getElementById('difficult').value;
 
     //evoco funzione numero celle x difficoltà
     const numberCells = difficultSelection(difficultEl);
-
 
     // evoco funzione per generare le bombe
     const bombs = generateBombs(1, numberCells)
@@ -54,16 +52,17 @@ playButton.addEventListener('click', function () {
 
     for (let i = 1; i <= numberCells; i++) {
 
+        //evoco funzione per creare griglia
         const cellEl = myGrid(containerEl, difficultEl);
 
         // aggiungo numero nella cella
         cellEl.innerText = i;
- 
+
 
         cellEl.addEventListener('click', function () {
             //numero celle per vincere
             const winnerCells = numberCells - 16;
-            
+
             //aggiungo classe active - bomb
             if (!bombs.includes(i) && cellFree == winnerCells - 1) {
                 this.classList.add('active');
@@ -144,4 +143,14 @@ function myGrid(appending, difficult) {
     }
 
     return cellEl
+}
+
+//funzione per resettare la griglia
+function gridReset(appending, result) {
+    //azzero griglia
+    appending.innerText = '';
+    //azzero risultato
+    result.innerText = '';
+    //appare la griglia
+    appending.style.display = 'flex';
 }
