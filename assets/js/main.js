@@ -101,7 +101,7 @@ playButton.addEventListener('click', function () {
                 alert('hai vinto');
             }
             //aggiungo classe active - bomb
-            if (!bombs.includes(i) && cellFree == 15) {
+            if (!bombs.includes(i) && cellFree == maxCells - 1) {
                 this.classList.add('active');
                 result.innerHTML = `Hai vinto!`;
                 console.log(result);
