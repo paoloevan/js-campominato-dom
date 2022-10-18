@@ -11,11 +11,17 @@ altre celle.
 
 La partita termina quando il giocatore clicca su una bomba o quando raggiunge il numero
 massimo possibile di numeri consentiti (ovvero quando ha rivelato tutte le celle che non 
-sono bombe).
+    sono bombe).
+    
+    Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte
+    che l’utente ha cliccato su una cella che non era una bomba.
+    */
 
-Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte
-che l’utente ha cliccato su una cella che non era una bomba.
-*/
+
+//funzione per numeri casuali
+function generateNumbers(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 // seleziono elemento della dom
 const containerEl = document.querySelector('.container');
@@ -29,7 +35,6 @@ playButton.addEventListener('click', function () {
     //azzero griglia
     containerEl.innerText = '';
     result.innerText = '';
-    console.log(result, 'si');
     //appare la griglia
     document.querySelector('.container').style.display = 'flex';
     //numero delle celle cliccate
@@ -45,35 +50,35 @@ playButton.addEventListener('click', function () {
     } else if (difficultEl == 'facile') {
         numberCells = 49;
     }
-    
+
     // genero le bombe
     const bombs = generateBombs(1, numberCells)
     console.log(bombs);
-    
+
     function generateBombs(min, max) {
         //array con le bombe
         const bombs = [];
-        
+
         while (bombs.length < 16) {
             //genero numeri random (bombe)
             const bomb = generateNumbers(min, max);
-            
+
             if (!bombs.includes(bomb)) {
                 //inserisco bombe nell'array
-                bombs.push(bomb)
+                bombs.push(bomb);
             }
         }
         return bombs
     }
-    
+
     for (let i = 1; i <= numberCells; i++) {
-        
+
         // creo elemento da inserire nella dom
         const cellEl = document.createElement('div');
-        
+
         //inserisco elemento nella dom con ciclo
         containerEl.append(cellEl);
-        
+
         //aggiungo la classe al'elemento
         if (difficultEl == 'facile') {
             cellEl.className = 'cell_hard cell';
@@ -81,56 +86,60 @@ playButton.addEventListener('click', function () {
             cellEl.className = 'cell_md cell';
         } else if (difficultEl == 'difficile') {
             cellEl.className = 'cell_easy cell';
-            
+
         }
-        
+
         // aggiungo numero nella cella
         cellEl.innerText = i;
-        
-        
+
+
         cellEl.addEventListener('click', function () {
             //numero celle per vincere
-            const maxCells = numberCells -16;
-            
+            const maxCells = numberCells - 16;
+
             if (cellFree == maxCells) {
-                alert('hai vinto')
+                alert('hai vinto');
             }
             //aggiungo classe active - bomb
-            if (bombs.includes(i)) {
+            if (!bombs.includes(i) && cellFree == 15) {
+                this.classList.add('active');
+                result.innerHTML = `Hai vinto!`;
+                console.log(result);
+                containerEl.insertAdjacentElement('beforebegin', result);
+            } else if (bombs.includes(i)) {
                 this.classList.add('bomb');
                 //console.log('punteggio', cellFree);
                 result.innerHTML = `Hai perso! Punteggio: ${cellFree}`;
                 containerEl.insertAdjacentElement('beforebegin', result);
-            } else if (cellFree == 3){
-                result.innerHTML = `Hai vinto!`;
-                console.log(result);
-                containerEl.insertAdjacentElement('beforebegin', result);
             } else {
-                //cellEl.classList.add('active'); //soluzione alternativa
                 this.classList.add('active');
-                cellFree++
+                cellFree++;
                 console.log(cellFree, 'numero celle azzurre');
-                //this.classList.toggle('active'); //soluzione alternativa
             }
 
-            
-            
+
+
             //emissione messaggio console con numero della cella
             console.log(cellEl.innerText);
         })
-        
-        
-        
+
+
+
     }
-    
-    
-    
-   
+
+
+
+
 
 
 })
 
-//funzione per numeri casuali
-function generateNumbers(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+// } else if ((!bombs.includes(i)) && (cellFree == 1)) {
+//     this.classList.add('active');
+//     cellFree++;
+//     console.log(cellFree, 'numero celle azzurre');
+// } else if (cellFree == 2) {
+//     result.innerHTML = `Hai vinto!`;
+//     console.log(result);
+//     containerEl.insertAdjacentElement('beforebegin', result);
+// }
