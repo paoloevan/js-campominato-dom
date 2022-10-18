@@ -30,6 +30,7 @@ const playButton = document.getElementById('play');
 //seleziono risultato dalla dom
 let result = document.createElement('h1');
 
+
 //aggiungo event listner
 playButton.addEventListener('click', function () {
     //azzero griglia
@@ -41,15 +42,10 @@ playButton.addEventListener('click', function () {
     let cellFree = 0;
     //seleziono elemento select
     const difficultEl = document.getElementById('difficult').value;
-    //condizione per difficoltà
-    let numberCells
-    if (difficultEl == 'difficile') {
-        numberCells = 100;
-    } else if (difficultEl == 'normale') {
-        numberCells = 81;
-    } else if (difficultEl == 'facile') {
-        numberCells = 49;
-    }
+
+    //evoco funzione numero celle x difficoltà
+    const numberCells = difficultSelection(difficultEl);
+
 
     // genero le bombe
     const bombs = generateBombs(1, numberCells)
@@ -127,19 +123,19 @@ playButton.addEventListener('click', function () {
 
     }
 
-
-
-
-
-
 })
 
-// } else if ((!bombs.includes(i)) && (cellFree == 1)) {
-//     this.classList.add('active');
-//     cellFree++;
-//     console.log(cellFree, 'numero celle azzurre');
-// } else if (cellFree == 2) {
-//     result.innerHTML = `Hai vinto!`;
-//     console.log(result);
-//     containerEl.insertAdjacentElement('beforebegin', result);
-// }
+// funzione per generare celle in base alla difficoltà
+function difficultSelection(difficultEl) {
+
+    //condizione per difficoltà
+    if (difficultEl == 'difficile') {
+        numberCells = 100;
+    } else if (difficultEl == 'normale') {
+        numberCells = 81;
+    } else if (difficultEl == 'facile') {
+        numberCells = 49;
+    }
+
+    return numberCells
+}
